@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - PayolaPal</title>
+    <link rel="stylesheet" href="styles/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="fade-in">
+    <header>
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="PayolaPal Logo" class="logo-img" />
+        PayolaPal
+      </a>
+      <nav>
+        <a href="services.html">Services</a>
+        <a href="order.html">Order</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Contact Us</h2>
+
+      <section class="contact-info">
+        <h3>Get in Touch</h3>
+        <p>
+          We’re here to help! If you have any questions or need support, please
+          don’t hesitate to reach out.
+        </p>
+        <p><strong>Email:</strong> support@payolapal.com</p>
+        <p>
+          <strong>Discord:</strong>
+          <a href="https://discord.gg/payolapal" target="_blank"
+            >Join our Discord</a
+          >
+        </p>
+        <p><strong>Phone:</strong> +1 234 567 890</p>
+      </section>
+
+      <section class="contact-form">
+        <h3>Contact Form</h3>
+        <form
+          action="https://script.google.com/macros/s/AKfycbyKFuFrSIGpoD6QU125KalbuixzadCvE-0uIzIxkAZIznPJzCnXtRo0_xsdvBXZzQuNMQ/exec"
+          method="POST"
+        >
+          <label for="name">Your Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="e.g., John Doe"
+          />
+
+          <label for="email">Your Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="e.g., johnsmith@gmail.com"
+          />
+
+          <label for="subject">Subject:</label>
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            required
+            placeholder="e.g., Inquiry about boosting service"
+          />
+
+          <label for="message">Your Message:</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            placeholder="Tell us your question or issue"
+          ></textarea>
+
+          <input class="submitButton" type="submit" value="Send Message" />
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 PayolaPal</p>
+    </footer>
+
+    <script src="scripts/transition.js"></script>
+  </body>
+</html>
