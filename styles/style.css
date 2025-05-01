@@ -248,7 +248,6 @@ textarea::placeholder {
   text-decoration: none;
   color: inherit; /* Ensures text doesn't change color */
 }
-
 .service-card {
   background-color: #1e1e1e;
   border-radius: 12px;

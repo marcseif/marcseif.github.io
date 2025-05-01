@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rank Boost - PayolaPal</title>
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/rankboost.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="fade-in">
+    <!-- Header Section -->
+    <header>
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="PayolaPal Logo" class="logo-img" />
+        PayolaPal
+      </a>
+      <nav>
+        <a href="rankboost.html">Order</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Sub-navigation Bar with Oval Boxes -->
+    <nav class="subnav">
+      <ul>
+        <li>
+          <a href="rankboost.html" class="subnav-link" id="rankBoost"
+            >Division Boost</a
+          >
+        </li>
+        <li>
+          <a href="wins.html" class="subnav-link" id="winboost">Net Wins</a>
+        </li>
+        <li>
+          <a href="placement.html" class="subnav-link" id="placementboost"
+            >Placement Matches</a
+          >
+        </li>
+        <li>
+          <a href="wtcustom.html" class="subnav-link" id="wtcustom"
+            >WinTrade/Custom</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main Content Box -->
+    <main id="main-content">
+      <h1>Rank Boost</h1>
+      <p>
+        Choose your current rank, desired rank, and select additional options.
+        The final price will be calculated based on your selections.
+      </p>
+
+      <div class="boost-boxes">
+        <div class="boost-box">
+          <h2>Current Rank</h2>
+          <form id="current-rank-form">
+            <div class="tier-icons" id="current-tier-icons">
+              <label>Current Tier:</label>
+              <div class="tier-selection" data-type="current">
+                <img src="images/icons/iron.png" alt="Iron" data-tier="iron" />
+                <img
+                  src="images/icons/bronze.png"
+                  alt="Bronze"
+                  data-tier="bronze"
+                />
+                <img
+                  src="images/icons/silver.png"
+                  alt="Silver"
+                  data-tier="silver"
+                />
+                <img src="images/icons/gold.png" alt="Gold" data-tier="gold" />
+                <img
+                  src="images/icons/platinum.png"
+                  alt="Platinum"
+                  data-tier="platinum"
+                />
+                <img
+                  src="images/icons/emerald.png"
+                  alt="Emerald"
+                  data-tier="emerald"
+                />
+                <img
+                  src="images/icons/diamond.png"
+                  alt="Diamond"
+                  data-tier="diamond"
+                />
+                <img
+                  src="images/icons/master.png"
+                  alt="Master"
+                  data-tier="master"
+                />
+              </div>
+            </div>
+
+            <label id="current-division-label">Current Division:</label>
+            <div class="division-selection" id="current-division-selection">
+              <div class="division-box" data-division="I">I</div>
+              <div class="division-box" data-division="II">II</div>
+              <div class="division-box" data-division="III">III</div>
+              <div class="division-box" data-division="IV">IV</div>
+            </div>
+
+            <!-- Current LP Input (Hidden unless Master) -->
+            <div
+              class="lp-container"
+              id="current-lp-container"
+              style="display: none"
+            >
+              <label>Current LP:</label>
+              <div class="lp-input-group">
+                <input
+                  type="range"
+                  id="current-lp-range"
+                  min="0"
+                  max="1000"
+                  value="0"
+                />
+                <input
+                  type="number"
+                  id="current-lp-number"
+                  min="0"
+                  max="1000"
+                  value="0"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Desired Rank Box -->
+        <div class="boost-box">
+          <h2>Desired Rank</h2>
+          <form id="desired-rank-form">
+            <div class="tier-icons" id="desired-tier-icons">
+              <label>Desired Tier:</label>
+              <div class="tier-selection" data-type="desired">
+                <img src="images/icons/iron.png" alt="Iron" data-tier="iron" />
+                <img
+                  src="images/icons/bronze.png"
+                  alt="Bronze"
+                  data-tier="bronze"
+                />
+                <img
+                  src="images/icons/silver.png"
+                  alt="Silver"
+                  data-tier="silver"
+                />
+                <img src="images/icons/gold.png" alt="Gold" data-tier="gold" />
+                <img
+                  src="images/icons/platinum.png"
+                  alt="Platinum"
+                  data-tier="platinum"
+                />
+                <img
+                  src="images/icons/emerald.png"
+                  alt="Emerald"
+                  data-tier="emerald"
+                />
+                <img
+                  src="images/icons/diamond.png"
+                  alt="Diamond"
+                  data-tier="diamond"
+                />
+                <img
+                  src="images/icons/master.png"
+                  alt="Master"
+                  data-tier="master"
+                />
+              </div>
+            </div>
+
+            <label>Desired Division:</label>
+            <div class="division-selection" id="desired-division-selection">
+              <div class="division-box" data-division="I">I</div>
+              <div class="division-box" data-division="II">II</div>
+              <div class="division-box" data-division="III">III</div>
+              <div class="division-box" data-division="IV">IV</div>
+            </div>
+
+            <!-- Desired LP Input (Hidden unless Master) -->
+            <div
+              class="lp-container"
+              id="desired-lp-container"
+              style="display: none"
+            >
+              <label>Desired LP:</label>
+              <div class="lp-input-group">
+                <input
+                  type="range"
+                  id="desired-lp-range"
+                  min="0"
+                  max="1000"
+                  value="0"
+                />
+                <input
+                  type="number"
+                  id="desired-lp-number"
+                  min="0"
+                  max="1000"
+                  value="0"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Checkout Box -->
+        <div class="boost-box checkout">
+          <h2>Checkout</h2>
+
+          <!-- Rank Summary -->
+          <div id="summary">
+            <div class="selected-rank">
+              <img
+                id="current-rank-icon"
+                src="images/icons/bronze.png"
+                alt="Current Rank Icon"
+              />
+              <span id="current-rank-name">Bronze</span>
+              <span id="current-division">II</span>
+            </div>
+            <span class="arrow">→</span>
+            <div class="selected-rank">
+              <img
+                id="desired-rank-icon"
+                src="images/icons/silver.png"
+                alt="Desired Rank Icon"
+              />
+              <span id="desired-rank-name">Silver</span>
+              <span id="desired-division">II</span>
+            </div>
+          </div>
+
+          <!-- Checkout Form -->
+          <form id="checkout-form">
+            <label for="extra-options">Additional Options:</label>
+            <div class="extra-options">
+              <div class="option">
+                <input
+                  type="checkbox"
+                  id="duo-boosting"
+                  name="extra-options"
+                  value="duo-boosting"
+                />
+                <label for="duo-boosting" class="option-label"
+                  >Duo Boosting (+50%)</label
+                >
+              </div>
+
+              <div class="option">
+                <input
+                  type="checkbox"
+                  id="livestream"
+                  name="extra-options"
+                  value="livestream"
+                />
+                <label for="livestream" class="option-label"
+                  >Livestream (+25%)</label
+                >
+              </div>
+
+              <div class="option">
+                <input
+                  type="checkbox"
+                  id="solo-only"
+                  name="extra-options"
+                  value="solo-only"
+                />
+                <label for="solo-only" class="option-label"
+                  >Solo Only (+25%)</label
+                >
+              </div>
+
+              <div class="option">
+                <input
+                  type="checkbox"
+                  id="priority-order"
+                  name="extra-options"
+                  value="priority-order"
+                />
+                <label for="priority-order" class="option-label"
+                  >Priority Order (+20%)</label
+                >
+              </div>
+
+              <div class="option">
+                <input
+                  type="checkbox"
+                  id="appear-offline"
+                  name="extra-options"
+                  value="appear-offline"
+                />
+                <label for="appear-offline" class="option-label"
+                  >Appear Offline (FREE)</label
+                >
+              </div>
+            </div>
+
+            <div class="pricing-card">
+              <p id="final-price">$150 - $300</p>
+              <p>Price based on your selections</p>
+            </div>
+
+            <button type="submit">Proceed to Checkout</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 PayolaPal</p>
+    </footer>
+
+    <script src="scripts/rankboost.js"></script>
+  </body>
+</html>
