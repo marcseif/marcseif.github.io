@@ -1,16 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const links = document.querySelectorAll("a");
+  const params = new URLSearchParams(window.location.search);
+  const serviceParam = params.get("service");
 
-  links.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      const href = this.getAttribute("href");
-
-      document.body.style.opacity = 0;
-
-      setTimeout(() => {
-        window.location.href = href;
-      }, 300);
-    });
-  });
+  if (serviceParam) {
+    const serviceSelect = document.querySelector("#service");
+    if (serviceSelect) {
+      serviceSelect.value = serviceParam;
+      updatePricing(); // If your form dynamically updates price based on selection
+    }
+  }
 });
