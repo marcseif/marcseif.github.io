@@ -35,8 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const lpGainContainer = document.getElementById(
         `${type}-lp-gain-container`
       );
+      const divisionInput = document.getElementById(`${type}Division`);
 
-      const isAboveMaster = ["master", "grandmaster", "challenger"].includes(
+      const isAboveMaster = ["Master", "Grandmaster", "Challenger"].includes(
         selectedTier
       );
 
@@ -53,13 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
           : "visible";
       if (lpGainContainer) lpGainContainer.style.visibility = "visible";
 
+      // Set division value appropriately
+      if (divisionInput) {
+        divisionInput.value = isAboveMaster ? "N/A" : "";
+      }
+
       // Trigger reflow after the display change to ensure proper centering
       setTimeout(() => {
-        divisionContainer.offsetHeight; // Accessing this forces a reflow
+        if (divisionContainer) divisionContainer.offsetHeight; // Accessing this forces a reflow
       }, 50);
 
-      // Update hidden input for current tier
-      document.getElementById("currentTier").value = selectedTier;
+      // Update hidden input for tier
+      document.getElementById(`${type}Tier`).value = selectedTier;
     });
   });
 
@@ -74,8 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       box.classList.add("selected");
 
-      // Update hidden input for current division
-      document.getElementById("currentDivision").value = box.dataset.division;
+      // Determine if it's current or desired division
+      const type = container.id.includes("current") ? "current" : "desired";
+
+      // Update hidden input for division
+      document.getElementById(`${type}Division`).value = box.dataset.division;
     });
   });
 });
