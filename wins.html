@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rank Boost - PayolaPal</title>
     <link rel="stylesheet" href="styles/style.css" />
-    <link rel="stylesheet" href="styles/rankboost.css" />
+    <link rel="stylesheet" href="styles/wins.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
       rel="stylesheet"
@@ -53,166 +53,113 @@
 
     <!-- Main Content Box -->
     <main id="main-content">
-      <h1>Rank Boost</h1>
+      <h1>Net Wins</h1>
       <p>
-        Choose your current rank, desired rank, and select additional options.
-        The final price will be calculated based on your selections.
+        Order a set number of wins — ideal if you just need a quick push without
+        full division boosts.
       </p>
 
       <div class="boost-boxes">
-        <div class="boost-box">
-          <h2>Current Rank</h2>
-          <form id="current-rank-form">
-            <div class="tier-icons" id="current-tier-icons">
-              <label>Current Tier:</label>
-              <div class="tier-selection" data-type="current">
-                <img src="images/icons/iron.png" alt="Iron" data-tier="iron" />
-                <img
-                  src="images/icons/bronze.png"
-                  alt="Bronze"
-                  data-tier="bronze"
-                />
-                <img
-                  src="images/icons/silver.png"
-                  alt="Silver"
-                  data-tier="silver"
-                />
-                <img src="images/icons/gold.png" alt="Gold" data-tier="gold" />
-                <img
-                  src="images/icons/platinum.png"
-                  alt="Platinum"
-                  data-tier="platinum"
-                />
-                <img
-                  src="images/icons/emerald.png"
-                  alt="Emerald"
-                  data-tier="emerald"
-                />
-                <img
-                  src="images/icons/diamond.png"
-                  alt="Diamond"
-                  data-tier="diamond"
-                />
-                <img
-                  src="images/icons/master.png"
-                  alt="Master"
-                  data-tier="master"
-                />
+        <div class="left-column">
+          <div class="boost-box">
+            <h2>Current Rank</h2>
+            <form id="current-rank-form">
+              <div class="tier-icons" id="current-tier-icons">
+                <div class="tier-selection" data-type="current">
+                  <img
+                    src="images/icons/iron.png"
+                    alt="Iron"
+                    data-tier="iron"
+                  />
+                  <img
+                    src="images/icons/bronze.png"
+                    alt="Bronze"
+                    data-tier="bronze"
+                  />
+                  <img
+                    src="images/icons/silver.png"
+                    alt="Silver"
+                    data-tier="silver"
+                  />
+                  <img
+                    src="images/icons/gold.png"
+                    alt="Gold"
+                    data-tier="gold"
+                  />
+                  <img
+                    src="images/icons/platinum.png"
+                    alt="Platinum"
+                    data-tier="platinum"
+                  />
+                  <img
+                    src="images/icons/emerald.png"
+                    alt="Emerald"
+                    data-tier="emerald"
+                  />
+                  <img
+                    src="images/icons/diamond.png"
+                    alt="Diamond"
+                    data-tier="diamond"
+                  />
+                  <img
+                    src="images/icons/master.png"
+                    alt="Master"
+                    data-tier="master"
+                  />
+                </div>
               </div>
-            </div>
 
-            <label>Current Divisions:</label>
-            <div class="division-selection" id="current-division-selection">
-              <div class="division-box" data-division="I">I</div>
-              <div class="division-box" data-division="II">II</div>
-              <div class="division-box" data-division="III">III</div>
-              <div class="division-box" data-division="IV">IV</div>
-            </div>
+              <!-- Current Division Input (Shown for ranks below Master) -->
+              <div id="current-division-container">
+                <div
+                  class="lp-input-group division-selection"
+                  id="current-division-selection"
+                >
+                  <div class="division-box" data-division="I">I</div>
+                  <div class="division-box" data-division="II">II</div>
+                  <div class="division-box" data-division="III">III</div>
+                  <div class="division-box" data-division="IV">IV</div>
+                </div>
+              </div>
 
-            <!-- Current LP Input (Hidden unless Master) -->
-            <div
-              class="lp-container"
-              id="current-lp-container"
-              style="display: none"
-            >
-              <label>Current LP:</label>
-              <div class="lp-input-group">
+              <!-- Current LP Input (Shown for Master+) -->
+              <div id="current-lp-container" style="display: none">
+                <div class="lp-input-group">
+                  <input
+                    type="range"
+                    id="current-lp-range"
+                    min="0"
+                    max="1000"
+                    value="0"
+                  />
+                  <input
+                    type="number"
+                    id="current-lp-number"
+                    min="0"
+                    max="1000"
+                    value="0"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <section class="wins-section boost-box">
+            <h2>Number of Wins</h2>
+            <div class="wins-box">
+              <div class="wins-slider-group">
                 <input
                   type="range"
-                  id="current-lp-range"
-                  min="0"
-                  max="1000"
-                  value="0"
+                  id="wins-slider"
+                  min="1"
+                  max="10"
+                  value="1"
                 />
-                <input
-                  type="number"
-                  id="current-lp-number"
-                  min="0"
-                  max="1000"
-                  value="0"
-                />
+                <span id="wins-count">1 Win</span>
               </div>
             </div>
-          </form>
+          </section>
         </div>
-
-        <!-- Desired Rank Box -->
-        <div class="boost-box">
-          <h2>Desired Rank</h2>
-          <form id="desired-rank-form">
-            <div class="tier-icons" id="desired-tier-icons">
-              <label>Desired Tier:</label>
-              <div class="tier-selection" data-type="desired">
-                <img src="images/icons/iron.png" alt="Iron" data-tier="iron" />
-                <img
-                  src="images/icons/bronze.png"
-                  alt="Bronze"
-                  data-tier="bronze"
-                />
-                <img
-                  src="images/icons/silver.png"
-                  alt="Silver"
-                  data-tier="silver"
-                />
-                <img src="images/icons/gold.png" alt="Gold" data-tier="gold" />
-                <img
-                  src="images/icons/platinum.png"
-                  alt="Platinum"
-                  data-tier="platinum"
-                />
-                <img
-                  src="images/icons/emerald.png"
-                  alt="Emerald"
-                  data-tier="emerald"
-                />
-                <img
-                  src="images/icons/diamond.png"
-                  alt="Diamond"
-                  data-tier="diamond"
-                />
-                <img
-                  src="images/icons/master.png"
-                  alt="Master"
-                  data-tier="master"
-                />
-              </div>
-            </div>
-
-            <label>Desired Division:</label>
-            <div class="division-selection" id="desired-division-selection">
-              <div class="division-box" data-division="I">I</div>
-              <div class="division-box" data-division="II">II</div>
-              <div class="division-box" data-division="III">III</div>
-              <div class="division-box" data-division="IV">IV</div>
-            </div>
-
-            <!-- Desired LP Input (Hidden unless Master) -->
-            <div
-              class="lp-container"
-              id="desired-lp-container"
-              style="display: none"
-            >
-              <label>Desired LP:</label>
-              <div class="lp-input-group">
-                <input
-                  type="range"
-                  id="desired-lp-range"
-                  min="0"
-                  max="1000"
-                  value="0"
-                />
-                <input
-                  type="number"
-                  id="desired-lp-number"
-                  min="0"
-                  max="1000"
-                  value="0"
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-
         <!-- Checkout Box -->
         <div class="boost-box checkout">
           <h2>Checkout</h2>
@@ -227,16 +174,6 @@
               />
               <span id="current-rank-name">Bronze</span>
               <span id="current-division">II</span>
-            </div>
-            <span class="arrow">→</span>
-            <div class="selected-rank">
-              <img
-                id="desired-rank-icon"
-                src="images/icons/silver.png"
-                alt="Desired Rank Icon"
-              />
-              <span id="desired-rank-name">Silver</span>
-              <span id="desired-division">II</span>
             </div>
           </div>
 
@@ -306,7 +243,7 @@
             </div>
 
             <div class="pricing-card">
-              <p id="final-price">$150 - $300</p>
+              <p id="final-price">$10</p>
               <p>Price based on your selections</p>
             </div>
 
@@ -321,6 +258,6 @@
       <p>&copy; 2025 PayolaPal</p>
     </footer>
 
-    <script src="scripts/rankboost.js"></script>
+    <script src="scripts/wins.js"></script>
   </body>
 </html>
