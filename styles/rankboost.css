@@ -364,6 +364,7 @@ button[type="submit"]:hover {
   display: flex;
   gap: 1rem;
   align-items: center;
+  margin-top: 10px;
 }
 
 .lp-input-group input[type="range"] {
@@ -453,15 +454,47 @@ select:focus {
   border-color: #d8a92b;
 }
 
-/* Ensures division boxes are on the next line */
-.division-selection {
+.dropdown-group {
+  margin-top: 10px;
   display: flex;
-  flex-wrap: wrap; /* This allows the division boxes to move to the next line */
-  gap: 10px; /* Optional: Adds space between the boxes */
+  flex-direction: column;
+  color: #d8a92b;
+  font-family: "Poppins", sans-serif;
 }
 
-.division-box {
-  display: block; /* Makes each division box behave like a block element */
-  width: 50px; /* Optional: Adjusts the width of each box */
-  text-align: center; /* Ensures text is centered inside each box */
+.dropdown-group label {
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.dropdown-group select {
+  padding: 8px;
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #d8a92b;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  transition: border 0.3s;
+}
+
+.dropdown-group select:focus {
+  border-color: gold;
+  outline: none;
+}
+
+#current-division,
+#desired-division {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.lp-number {
+  font-weight: bold;
+}
+
+.lp-label {
+  font-size: 0.9em;
 }
