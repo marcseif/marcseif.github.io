@@ -58,7 +58,11 @@
       </p>
 
       <div class="form-container">
-        <form id="orderForm">
+        <form
+          id="orderForm"
+          action="https://script.google.com/macros/s/AKfycbzk1etUUEinUqcbRQdweaad54WxFcKYmAjOxp24hnL4TVWTT0YfV75X_xda3CItgiTY/exec"
+          method="POST"
+        >
           <label for="summonerName">What is your Summoner Name?</label>
           <input
             type="text"
@@ -79,110 +83,84 @@
 
           <div class="boost-box">
             <h2>Current Rank</h2>
-            <form id="current-rank-form">
-              <div class="tier-icons" id="current-tier-icons">
-                <div class="tier-selection" data-type="current">
-                  <img
-                    src="images/icons/unranked.png"
-                    alt="Iron"
-                    data-tier="iron"
-                  />
-                  <img
-                    src="images/icons/iron.png"
-                    alt="Iron"
-                    data-tier="iron"
-                  />
-                  <img
-                    src="images/icons/bronze.png"
-                    alt="Bronze"
-                    data-tier="bronze"
-                  />
-                  <img
-                    src="images/icons/silver.png"
-                    alt="Silver"
-                    data-tier="silver"
-                  />
-                  <img
-                    src="images/icons/gold.png"
-                    alt="Gold"
-                    data-tier="gold"
-                  />
-                  <img
-                    src="images/icons/platinum.png"
-                    alt="Platinum"
-                    data-tier="platinum"
-                  />
-                  <img
-                    src="images/icons/emerald.png"
-                    alt="Emerald"
-                    data-tier="emerald"
-                  />
-                  <img
-                    src="images/icons/diamond.png"
-                    alt="Diamond"
-                    data-tier="diamond"
-                  />
-                  <img
-                    src="images/icons/master.png"
-                    alt="Master"
-                    data-tier="master"
-                  />
-                </div>
+            <div class="tier-icons" id="current-tier-icons">
+              <div class="tier-selection" data-type="current">
+                <img
+                  src="images/icons/unranked.png"
+                  alt="Iron"
+                  data-tier="iron"
+                />
+                <img src="images/icons/iron.png" alt="Iron" data-tier="iron" />
+                <img
+                  src="images/icons/bronze.png"
+                  alt="Bronze"
+                  data-tier="bronze"
+                />
+                <img
+                  src="images/icons/silver.png"
+                  alt="Silver"
+                  data-tier="silver"
+                />
+                <img src="images/icons/gold.png" alt="Gold" data-tier="gold" />
+                <img
+                  src="images/icons/platinum.png"
+                  alt="Platinum"
+                  data-tier="platinum"
+                />
+                <img
+                  src="images/icons/emerald.png"
+                  alt="Emerald"
+                  data-tier="emerald"
+                />
+                <img
+                  src="images/icons/diamond.png"
+                  alt="Diamond"
+                  data-tier="diamond"
+                />
+                <img
+                  src="images/icons/master.png"
+                  alt="Master"
+                  data-tier="master"
+                />
               </div>
+            </div>
 
-              <div id="current-division-container">
-                <div
-                  class="lp-input-group division-selection"
-                  id="current-division-selection"
-                >
-                  <div class="division-box" data-division="I">I</div>
-                  <div class="division-box" data-division="II">II</div>
-                  <div class="division-box" data-division="III">III</div>
-                  <div class="division-box" data-division="IV">IV</div>
-                </div>
+            <div id="current-division-container">
+              <div
+                class="lp-input-group division-selection"
+                id="current-division-selection"
+              >
+                <div class="division-box" data-division="I">I</div>
+                <div class="division-box" data-division="II">II</div>
+                <div class="division-box" data-division="III">III</div>
+                <div class="division-box" data-division="IV">IV</div>
               </div>
-
-              <div id="current-lp-container" style="display: none">
-                <div class="lp-input-group">
-                  <input
-                    type="range"
-                    id="current-lp-range"
-                    min="0"
-                    max="1000"
-                    value="0"
-                  />
-                  <input
-                    type="number"
-                    id="current-lp-number"
-                    min="0"
-                    max="1000"
-                    value="0"
-                  />
-                </div>
-              </div>
-
-              <div class="dropdown-group" id="current-lp-dropdown-container">
-                <label for="current-lp">Current LP:</label>
-                <select id="current-lp">
-                  <option value="0">0-20</option>
-                  <option value="1">21-40</option>
-                  <option value="2">41-60</option>
-                  <option value="3">61-80</option>
-                  <option value="4">81-100</option>
-                </select>
-              </div>
-
-              <div class="dropdown-group" id="current-lp-gain-container">
-                <label for="current-lp-gain">LP Gain:</label>
-                <select id="current-lp-gain">
-                  <option value="0-14">0-14</option>
-                  <option value="15-20">15-20</option>
-                  <option value="21-25">21-25</option>
-                  <option value="26+">26+</option>
-                </select>
-              </div>
-            </form>
+            </div>
           </div>
+          <input type="hidden" name="currentTier" id="currentTier" />
+          <input type="hidden" name="currentDivision" id="currentDivision" />
+
+          <label for="currentLP">Current LP:</label>
+          <input
+            type="number"
+            id="current-lp"
+            name="currentLP"
+            min="0"
+            max="1000"
+            placeholder="e.g. 45"
+            required
+          />
+
+          <label for="currentLPGain">LP Gain:</label>
+          <input
+            type="number"
+            id="current-lp-gain"
+            name="currentLPGain"
+            min="0"
+            max="100"
+            placeholder="e.g. 20"
+            required
+          />
 
           <label
             for="discord"
@@ -251,7 +229,6 @@
       <p>&copy; 2025 PayolaPal</p>
     </footer>
 
-    <script src="scripts/transition.js"></script>
     <script src="scripts/wtcustom.js"></script>
   </body>
 </html>
