@@ -88,3 +88,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+// Optionally, show a styled message on the page instead of alert:
+const message = document.createElement("p");
+message.textContent =
+  "Form submission was successful. Thank you. We will get back to you within 24 hours.";
+message.style.color = "#d8a92b";
+message.style.textAlign = "center";
+message.style.marginTop = "20px";
+this.appendChild(message);

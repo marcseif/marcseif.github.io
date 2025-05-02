@@ -180,3 +180,43 @@ form#orderForm .submitButton:hover {
   font-weight: bold;
   font-family: "Poppins", sans-serif;
 }
+
+/* Labels for LP Inputs */
+label[for="currentLP"],
+label[for="currentLPGain"] {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 6px;
+  font-size: 1rem;
+  color: #d8a92b;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Inputs for LP and LP Gain */
+#current-lp,
+#current-lp-gain {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#current-lp:focus,
+#current-lp-gain:focus {
+  border-color: #d8a92b;
+  box-shadow: 0 0 8px rgba(216, 169, 43, 0.5);
+  outline: none;
+}
+
+#current-lp::placeholder,
+#current-lp-gain::placeholder {
+  color: #aaa;
+}
