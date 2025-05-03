@@ -3,14 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reviews - PayolaPal</title>
+    <title>Reviews | PayolaPal</title>
     <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/reviews.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="fade-in">
+  <body>
     <header>
       <a href="index.html" class="logo">
         <img src="images/logo.png" alt="PayolaPal Logo" class="logo-img" />
@@ -19,66 +20,107 @@
       <nav>
         <a href="rankboost.html">Order</a>
         <a href="faq.html">FAQ</a>
-        <a href="about.html">About</a>
+        <a href="about.html">Our Boosters</a>
         <a href="reviews.html">Reviews</a>
         <a href="contact.html">Contact</a>
       </nav>
     </header>
 
-    <main>
-      <section>
-        <h2>What Our Clients Say</h2>
-        <p>
-          See what others have to say about their experience with PayolaPal
-          services!
-        </p>
+    <main class="reviews-container">
+      <h1 class="page-title">Customer Reviews</h1>
 
-        <!-- Example of reviews displayed dynamically or manually -->
-        <div class="review">
-          <h3>John D.</h3>
-          <p>
-            "I was stuck in Gold 2 for ages, but thanks to PayolaPal, I made it
-            to Platinum in no time! The service was fast, and the booster was
-            very professional. Highly recommend!"
+      <div class="reviews-wrapper">
+        <div class="review-card">
+          <img
+            src="images/fern-left.png"
+            class="fern fern-left"
+            alt="Fern Left"
+          />
+          <p class="review-text">
+            Fast and smooth boosting, very happy with the service!
           </p>
-        </div>
-        <div class="review">
-          <h3>Sarah M.</h3>
-          <p>
-            "Incredible experience! I needed help with my placements and the
-            team at PayolaPal helped me boost to a rank I thought was out of
-            reach. Great service and will definitely come back for more!"
-          </p>
-        </div>
-        <div class="review">
-          <h3>Mark T.</h3>
-          <p>
-            "Highly recommend if you want to avoid the stress of grinding! The
-            booster was great and kept me updated throughout the entire process.
-            A++ service!"
-          </p>
+          <img
+            src="images/fern-right.png"
+            class="fern fern-right"
+            alt="Fern Right"
+          />
+          <div class="rank-label">Silver IV ➔ Gold IV</div>
         </div>
 
-        <h3>Leave a Review</h3>
-        <p>
-          If you've used our services, we'd love to hear your feedback! Please
-          submit your review below:
-        </p>
+        <div class="review-card">
+          <img
+            src="images/fern-left.png"
+            class="fern fern-left"
+            alt="Fern Left"
+          />
+          <p class="review-text">
+            Super friendly and finished faster than expected!
+          </p>
+          <img
+            src="images/fern-right.png"
+            class="fern fern-right"
+            alt="Fern Right"
+          />
+          <div class="rank-label">Gold III ➔ Platinum IV</div>
+        </div>
 
-        <form class="reviews-form" action="#" method="POST">
-          <label for="name">Your Name:</label>
-          <input type="text" id="name" name="name" required />
+        <div class="review-card">
+          <img
+            src="images/fern-left.png"
+            class="fern fern-left"
+            alt="Fern Left"
+          />
+          <p class="review-text">
+            Great communication and easy process. Highly recommend!
+          </p>
+          <img
+            src="images/fern-right.png"
+            class="fern fern-right"
+            alt="Fern Right"
+          />
+          <div class="rank-label">Bronze II ➔ Silver IV</div>
+        </div>
 
-          <label for="review">Your Review:</label>
-          <textarea id="review" name="review" rows="4" required></textarea>
+        <div class="review-card">
+          <img
+            src="images/fern-left.png"
+            class="fern fern-left"
+            alt="Fern Left"
+          />
+          <p class="review-text">
+            Boost was done professionally. 10/10 experience.
+          </p>
+          <img
+            src="images/fern-right.png"
+            class="fern fern-right"
+            alt="Fern Right"
+          />
+          <div class="rank-label">Platinum IV ➔ Diamond IV</div>
+        </div>
 
-          <input class="submitButton" type="submit" value="Submit Review" />
-        </form>
-      </section>
+        <div class="review-card">
+          <img
+            src="images/fern-left.png"
+            class="fern fern-left"
+            alt="Fern Left"
+          />
+          <p class="review-text">
+            Quick work and kept me updated. Will use again!
+          </p>
+          <img
+            src="images/fern-right.png"
+            class="fern fern-right"
+            alt="Fern Right"
+          />
+          <div class="rank-label">Iron I ➔ Bronze IV</div>
+        </div>
+      </div>
     </main>
 
     <footer>
-      <p>&copy; 2025 PayolaPal. All rights reserved.</p>
+      <p>&copy; 2025 PayolaPal</p>
     </footer>
+
+    <script src="index.js"></script>
   </body>
 </html>
