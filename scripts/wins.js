@@ -6,10 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const currentRankIcon = document.getElementById("current-rank-icon");
   const currentRankName = document.getElementById("current-rank-name");
   const currentDivisionText = document.getElementById("current-division");
-  const currentLPDropdown = document.getElementById(
-    "current-lp-dropdown-container"
-  );
-  const currentLPGain = document.getElementById("current-lp-gain-container");
   const currentDivisionContainer = document.getElementById(
     "current-division-selection"
   );
@@ -94,13 +90,13 @@ document.addEventListener("DOMContentLoaded", function () {
   function updatePriceDisplay() {
     const base = calculateBasePrice();
     const price = calculatePrice(base);
-    finalPrice.textContent = `$${price.toFixed(2)}`;
+    finalPrice.textContent = `$${price.toFixed(2)} AUD`;
   }
 
   function updateSummary() {
     const winText = `${winsSlider.value} Win${
       winsSlider.value === "1" ? "" : "s"
-    } in`;
+    }`;
     currentRankIcon.src = `images/icons/${currentTier}.png`;
     currentRankName.textContent = winText;
     currentDivisionText.textContent = `${capitalize(currentTier)} ${

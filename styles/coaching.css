@@ -1,0 +1,222 @@
+#main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Subnav */
+.subnav {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.subnav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  padding: 0;
+}
+
+.subnav-link {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 2px solid #d8a92b;
+  background-color: transparent;
+  color: #d8a92b;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  font-family: "Poppins", sans-serif;
+}
+
+.subnav-link:hover,
+.subnav-link.active {
+  background-color: #d8a92b;
+  color: black;
+}
+
+/* wtcustom.css */
+
+/* Container for the full form */
+.form-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 2px solid #d8a92b;
+  border-radius: 12px;
+  background-color: #111;
+  box-shadow: 0 0 15px rgba(216, 169, 43, 0.2);
+  font-family: "Poppins", sans-serif;
+}
+
+/* Form fields */
+form#orderForm label {
+  display: block;
+  margin-top: 20px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+}
+
+form#orderForm input[type="text"],
+form#orderForm textarea,
+form#orderForm select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  background-color: #1c1c1c;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+}
+/* Current Rank Section */
+.boost-box h2 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+form#orderForm textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+form#orderForm .submitButton {
+  margin-top: 30px;
+  padding: 12px 20px;
+  background-color: #d8a92b;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+}
+
+form#orderForm .submitButton:hover {
+  background-color: #e5be4e;
+}
+
+/* Tier icon selection */
+.tier-selection img {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.tier-selection img:hover {
+  transform: scale(1.05);
+  border-color: #d8a92b;
+}
+
+.tier-selection img.selected {
+  border-color: #d8a92b;
+  background-color: #222;
+}
+
+.division-box {
+  width: 50px;
+  height: 50px;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
+}
+.division-box:hover {
+  transform: scale(1.05);
+  background-color: #222;
+  border-color: #d8a92b;
+}
+
+.division-box.selected {
+  background-color: #d8a92b;
+  color: white;
+  border-color: #d8a92b;
+}
+
+/* LP Input Group */
+.lp-input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.dropdown-group input[type="number"] {
+  padding: 10px;
+  background-color: #1a1a1a;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.dropdown-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: #d8a92b;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Labels for LP Inputs */
+label[for="currentLP"],
+label[for="currentLPGain"] {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 6px;
+  font-size: 1rem;
+  color: #d8a92b;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Inputs for LP and LP Gain */
+#current-lp,
+#current-lp-gain {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#current-lp:focus,
+#current-lp-gain:focus {
+  border-color: #d8a92b;
+  box-shadow: 0 0 8px rgba(216, 169, 43, 0.5);
+  outline: none;
+}
+
+#current-lp::placeholder,
+#current-lp-gain::placeholder {
+  color: #aaa;
+}

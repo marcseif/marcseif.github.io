@@ -170,10 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const price = calculatePrice(base);
     const max = calculatePrice(base); // Identical calculation — can simplify if max logic varies later
 
-    finalPrice.textContent =
-      price >= max
-        ? `$${max.toFixed(2)}`
-        : `$${price.toFixed(2)} - $${max.toFixed(2)}`;
+    finalPrice.textContent = `$${price.toFixed(2)} AUD`;
   }
 
   function updateSummary() {
@@ -213,7 +210,6 @@ document.addEventListener("DOMContentLoaded", function () {
         this.closest(".tier-selection").getAttribute("data-type") === "current";
       const container = this.closest(".tier-selection");
 
-      // Reset all icons
       container
         .querySelectorAll("img")
         .forEach((img) => img.classList.remove("selected"));
@@ -222,13 +218,12 @@ document.addEventListener("DOMContentLoaded", function () {
       if (isCurrent) {
         currentTier = tier;
 
-        // Adjust current division container visibility based on the tier selected
         if (tier === "master") {
-          currentDivisionContainer.style.display = "none"; // Hide division for master
+          currentDivisionContainer.style.display = "none";
           currentLPDropdown.style.display = "none";
           currentLPGain.style.display = "block";
         } else {
-          currentDivisionContainer.style.display = "block"; // Show division for all other tiers
+          currentDivisionContainer.style.display = "block";
           currentLPDropdown.style.display = "block";
           currentLPGain.style.display = "block";
         }
@@ -236,11 +231,10 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         desiredTier = tier;
 
-        // Adjust desired division container visibility based on the tier selected
         if (tier === "master") {
-          desiredDivisionContainer.style.display = "none"; // Hide division for master
+          desiredDivisionContainer.style.display = "none";
         } else {
-          desiredDivisionContainer.style.display = "flex"; // Show division for all other tiers
+          desiredDivisionContainer.style.display = "flex";
         }
         desiredLPContainer.style.display = tier === "master" ? "block" : "none";
       }

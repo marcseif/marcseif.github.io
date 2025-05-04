@@ -55,16 +55,17 @@
     </nav>
 
     <main id="main-content">
-      <h1>Wintrading/Custom</h1>
-      <p>
-        Special request services such as wintrading or flex queue manipulation —
-        available upon discussion.
+      <h1>Coaching</h1>
+      <p style="margin-bottom: 20px">
+        Learn from top-tier players in structured 1-on-1 sessions. Improve your
+        own skills dramatically.
       </p>
+      <p>Valued at $45 AUD for Diamond and below, and $55 AUD for Masters+.</p>
 
       <div class="form-container">
         <form
           id="orderForm"
-          action="https://script.google.com/macros/s/AKfycbzk1etUUEinUqcbRQdweaad54WxFcKYmAjOxp24hnL4TVWTT0YfV75X_xda3CItgiTY/exec"
+          action="https://script.google.com/macros/s/AKfycbx0_MfKJJs2c3qTY2BLc4ErzIz9YPX30mCxgnsq64E0bMOzImR9iNK9DgigFRJN0UcJ/exec"
           method="POST"
         >
           <label for="summonerName">What is your Summoner Name + Tag?</label>
@@ -144,25 +145,12 @@
           <input type="hidden" name="currentTier" id="currentTier" />
           <input type="hidden" name="currentDivision" id="currentDivision" />
 
-          <label for="currentLP">Current LP:</label>
+          <label for="mainRole">What is your Main Role?</label>
           <input
-            type="number"
-            id="current-lp"
-            name="currentLP"
-            min="0"
-            max="1000"
-            placeholder="e.g. 45"
-            required
-          />
-
-          <label for="currentLPGain">LP Gain:</label>
-          <input
-            type="number"
-            id="current-lp-gain"
-            name="currentLPGain"
-            min="0"
-            max="100"
-            placeholder="e.g. 20"
+            type="text"
+            id="mainRole"
+            name="mainRole"
+            placeholder="e.g. Mid, Jungle, Support"
             required
           />
 

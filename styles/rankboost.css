@@ -46,6 +46,7 @@
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 30px;
+  justify-content: space-between;
 }
 
 .left-column {
@@ -208,11 +209,6 @@ button[type="submit"]:hover {
 
 .selected-rank span {
   margin: 0 8px;
-}
-
-.boost-boxes {
-  display: flex;
-  justify-content: space-between;
 }
 
 .boost-box {

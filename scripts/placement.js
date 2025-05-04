@@ -94,13 +94,13 @@ document.addEventListener("DOMContentLoaded", function () {
   function updatePriceDisplay() {
     const base = calculateBasePrice();
     const price = calculatePrice(base);
-    finalPrice.textContent = `$${price.toFixed(2)}`;
+    finalPrice.textContent = `$${price.toFixed(2)} AUD`;
   }
 
   function updateSummary() {
     const winText = `${winsSlider.value} Game${
       winsSlider.value === "1" ? "" : "s"
-    } in`;
+    }`;
     currentRankIcon.src = `images/icons/${currentTier}.png`;
     currentRankName.textContent = winText;
     currentDivisionText.textContent = `${capitalize(currentTier)} ${
