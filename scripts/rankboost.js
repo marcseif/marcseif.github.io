@@ -62,63 +62,84 @@ document.addEventListener("DOMContentLoaded", function () {
     desiredDivisionBox.classList.add("selected");
   }
 
-  const tierValues = {
-    iron: 0,
-    bronze: 50,
-    silver: 100,
-    gold: 150,
-    platinum: 200,
-    emerald: 250,
-    diamond: 300,
-    master: 350,
-  };
-
-  const divisionValues = { I: 1, II: 2, III: 3, IV: 4 };
-
   function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   function calculateBasePrice() {
+    const tiers = ["iron", "bronze", "silver", "gold", "platinum", "diamond"];
+    const divisionOrder = ["IV", "III", "II", "I"];
+    const divisionPrices = {
+      iron: 8,
+      bronze: 9,
+      silver: 14,
+      gold: 24,
+      platinum: 45,
+      diamond: {
+        "4-3": 90,
+        "3-2": 140,
+        "2-1": 190,
+      },
+    };
+
+    // Build the ladder list
+    let ladder = [];
+    for (let tier of tiers) {
+      for (let i = 0; i < divisionOrder.length; i++) {
+        ladder.push({
+          tier,
+          division: divisionOrder[i],
+        });
+      }
+    }
+
+    // Find indexes
+    const currentIndex = ladder.findIndex(
+      (r) => r.tier === currentTier && r.division === currentDivision
+    );
+    const desiredIndex = ladder.findIndex(
+      (r) => r.tier === desiredTier && r.division === desiredDivision
+    );
+
+    if (
+      currentIndex === -1 ||
+      desiredIndex === -1 ||
+      desiredIndex <= currentIndex
+    ) {
+      return 0;
+    }
+
     let price = 0;
+    for (let i = currentIndex; i < desiredIndex; i++) {
+      const from = ladder[i];
+      const to = ladder[i + 1];
 
-    // Check if the current tier is less than Master
-    if (tierValues[currentTier] < tierValues["master"]) {
-      // Set current LP to 0 if the current tier is less than Master
-      currentLPNumber.value = 0;
-    }
-
-    // Check if the final rank is Master or higher
-    if (tierValues[desiredTier] >= tierValues["master"]) {
-      // If the current rank is not Master, include $50 per rank difference
-      if (tierValues[currentTier] < tierValues["master"]) {
-        const tierDiff = Math.abs(
-          tierValues[desiredTier] - tierValues[currentTier]
-        );
-        price += tierDiff * 50; // $50 per rank difference
-      }
-
-      // Add the LP difference ($1 per LP difference)
-      const currentLP = parseInt(currentLPNumber.value, 10); // Current LP input
-      const desiredLP = parseInt(desiredLPNumber.value, 10); // Desired LP input
-      price += Math.abs(desiredLP - currentLP); // $1 per LP difference
-    } else {
-      // Non-Master ranks: Price is based on tier difference and division difference
-      price = tierValues[desiredTier] - tierValues[currentTier];
-
-      // Only calculate division difference if both tiers are below Master
-      if (
-        tierValues[currentTier] < tierValues["master"] &&
-        tierValues[desiredTier] < tierValues["master"]
-      ) {
-        const divisionDiff =
-          divisionValues[currentDivision] - divisionValues[desiredDivision];
-        price += divisionDiff * 50;
-        price = divisionDiff;
+      if (from.tier === "diamond") {
+        const key = `${getDivisionNumber(from.division)}-${getDivisionNumber(
+          to.division
+        )}`;
+        price += divisionPrices.diamond[key] || 0;
+      } else {
+        price += divisionPrices[from.tier] || 0;
       }
     }
 
-    return Math.max(price, 0);
+    return price;
+  }
+
+  function getDivisionNumber(division) {
+    switch (division) {
+      case "IV":
+        return 4;
+      case "III":
+        return 3;
+      case "II":
+        return 2;
+      case "I":
+        return 1;
+      default:
+        return 0;
+    }
   }
 
   function calculatePrice(base) {

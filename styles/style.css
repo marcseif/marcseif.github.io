@@ -472,3 +472,8 @@ ul li {
   font-size: 1em;
   font-weight: 500;
 }
+.review-link {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* makes the whole link act like a div */
+}
