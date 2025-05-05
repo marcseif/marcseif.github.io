@@ -494,3 +494,25 @@ select:focus {
 .lp-label {
   font-size: 0.9em;
 }
+
+#proceed-button:disabled {
+  background-color: #444;
+  color: #999;
+  cursor: not-allowed;
+  border: 1px solid #666;
+  opacity: 0.7;
+}
+
+#proceed-button {
+  transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+}
+
+.warning-box {
+  background-color: #3a0e0e;
+  color: #ff4d4d;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ff4d4d;
+  border-radius: 8px;
+  font-weight: bold;
+}

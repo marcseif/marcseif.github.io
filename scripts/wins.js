@@ -51,46 +51,82 @@ document.addEventListener("DOMContentLoaded", function () {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  function calculateBasePrice() {
-    let price = tierValues[currentTier] || 0;
-
-    if (tierValues[currentTier] < tierValues["master"]) {
-      const divisionAdjustment = (4 - divisionValues[currentDivision]) * 10;
-      price += divisionAdjustment;
-    } else {
-      price += parseInt(currentLPNumber.value || 0, 10);
+  function getPricePerWin() {
+    switch (currentTier) {
+      case "iron":
+        return 2;
+      case "bronze":
+        return 3;
+      case "silver":
+        return 5;
+      case "gold":
+        return 9;
+      case "platinum":
+        return 13;
+      case "emerald":
+        return 15;
+      case "diamond":
+        switch (currentDivision) {
+          case "IV":
+            return 16;
+          case "III":
+            return 20;
+          case "II":
+            return 30;
+          case "I":
+            return 40;
+        }
+        return 16; // default fallback
+      case "master":
+        return parseInt(currentLPNumber.value, 10) > 200 ? 70 : 50;
+      default:
+        return 0;
     }
-
-    return Math.max(price, 0);
   }
 
-  function calculatePrice(base) {
-    let price = base;
+  function calculatePrice() {
+    const perWinPrice = getPricePerWin();
+    const wins = parseInt(winsSlider.value, 10);
+    let price = perWinPrice * wins;
+
     extraOptions.forEach((option) => {
       if (!option.checked) return;
       switch (option.value) {
         case "duo-boosting":
-          price += base * 0.5;
+          price += price * 0.5;
           break;
         case "plus-1-win":
-          price += base * 0.3;
+          price += price * 0.3;
           break;
         case "livestream":
         case "solo-only":
-          price += base * 0.25;
+          price += price * 0.25;
           break;
         case "priority-order":
-          price += base * 0.2;
+          price += price * 0.2;
           break;
       }
     });
+
     return Math.max(price, 0);
   }
 
   function updatePriceDisplay() {
-    const base = calculateBasePrice();
-    const price = calculatePrice(base);
+    const price = calculatePrice();
     finalPrice.textContent = `$${price.toFixed(2)} AUD`;
+
+    const proceedButton = document.querySelector("#proceed-button");
+    const checkoutBox = document.querySelector(".checkout-box");
+
+    if (price > 0) {
+      proceedButton.disabled = false;
+      proceedButton.classList.remove("disabled");
+      checkoutBox.classList.remove("error");
+    } else {
+      proceedButton.disabled = true;
+      proceedButton.classList.add("disabled");
+      checkoutBox.classList.add("error");
+    }
   }
 
   function updateSummary() {
@@ -114,6 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
       rangeInput.value = value;
       numberInput.value = value;
       updateSummary();
+      updatePriceDisplay(); // ✅ Add this line
     };
     rangeInput.addEventListener("input", () => sync(rangeInput.value));
     numberInput.addEventListener("input", () => sync(numberInput.value));
@@ -176,6 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const wins = parseInt(winsSlider.value);
     winsCountDisplay.textContent = `${wins} Win${wins === 1 ? "" : "s"}`;
     updateSummary();
+    updatePriceDisplay();
   });
 
   // Subnav highlight

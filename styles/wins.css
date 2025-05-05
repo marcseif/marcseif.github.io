@@ -396,3 +396,45 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #f1c94e;
 }
+
+#current-lp-range {
+  appearance: none; /* Standards-friendly */
+  width: 100%;
+  height: 8px;
+  background: #1e1e1e;
+  border-radius: 4px;
+  outline: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* Chrome & Safari */
+#current-lp-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #d8a92b;
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+#current-lp-range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: #ffd35c;
+}
+
+/* Firefox */
+#current-lp-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #d8a92b;
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+#current-lp-range::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  background: #ffd35c;
+}

@@ -67,22 +67,32 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function calculateBasePrice() {
-    const tiers = ["iron", "bronze", "silver", "gold", "platinum", "diamond"];
+    const tiers = [
+      "iron",
+      "bronze",
+      "silver",
+      "gold",
+      "platinum",
+      "emerald",
+      "diamond",
+    ];
     const divisionOrder = ["IV", "III", "II", "I"];
     const divisionPrices = {
-      iron: 8,
-      bronze: 9,
-      silver: 14,
+      iron: 9,
+      bronze: 10,
+      silver: 11,
       gold: 24,
       platinum: 45,
+      emerald: 60,
       diamond: {
         "4-3": 90,
-        "3-2": 140,
-        "2-1": 190,
+        "3-2": 100,
+        "2-1": 140,
+        "1-master": 200,
       },
     };
 
-    // Build the ladder list
+    // Ladder to Diamond I
     let ladder = [];
     for (let tier of tiers) {
       for (let i = 0; i < divisionOrder.length; i++) {
@@ -92,8 +102,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
     }
+    ladder.push({ tier: "diamond", division: "I" }); // Ensure Diamond I is included
 
-    // Find indexes
     const currentIndex = ladder.findIndex(
       (r) => r.tier === currentTier && r.division === currentDivision
     );
@@ -101,6 +111,46 @@ document.addEventListener("DOMContentLoaded", function () {
       (r) => r.tier === desiredTier && r.division === desiredDivision
     );
 
+    // Case 1: If Desired is Master Tier
+    if (desiredTier === "master") {
+      let price = 0;
+
+      // If current is already Master
+      if (currentTier === "master") {
+        const lpDiff =
+          parseInt(desiredLPNumber.value || 0) -
+          parseInt(currentLPNumber.value || 0);
+        return lpDiff > 0 ? lpDiff * 1.6 : 0;
+      }
+
+      // Else, go from current → Diamond I → Master (200)
+      for (let i = currentIndex; i < ladder.length - 1; i++) {
+        const from = ladder[i];
+        const to = ladder[i + 1];
+
+        if (from.tier === "diamond" && from.division === "I") {
+          price += divisionPrices.diamond["1-master"];
+        } else if (from.tier === "diamond") {
+          const key = `${getDivisionNumber(from.division)}-${getDivisionNumber(
+            to.division
+          )}`;
+          price += divisionPrices.diamond[key] || 0;
+        } else {
+          price += divisionPrices[from.tier] || 0;
+        }
+      }
+
+      // Then add LP pricing from 0 to desired LP
+      const desiredLP = parseInt(desiredLPNumber.value || 0);
+      price += desiredLP * 1.6;
+
+      const proceedButton = document.getElementById("proceed-button");
+      const priceWarning = document.getElementById("price-warning");
+
+      return price;
+    }
+
+    // Case 2: Neither current nor desired is Master
     if (
       currentIndex === -1 ||
       desiredIndex === -1 ||
@@ -171,6 +221,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const max = calculatePrice(base); // Identical calculation — can simplify if max logic varies later
 
     finalPrice.textContent = `$${price.toFixed(2)} AUD`;
+
+    const proceedButton = document.getElementById("proceed-button");
+    const priceWarning = document.getElementById("price-warning");
+
+    if (price <= 0) {
+      proceedButton.disabled = true;
+      priceWarning.style.display = "block";
+    } else {
+      proceedButton.disabled = false;
+      priceWarning.style.display = "none";
+    }
   }
 
   function updateSummary() {
@@ -195,6 +256,7 @@ document.addEventListener("DOMContentLoaded", function () {
       rangeInput.value = value;
       numberInput.value = value;
       updateSummary();
+      updatePriceDisplay(); // 💡 This ensures the price updates
     };
     rangeInput.addEventListener("input", () => sync(rangeInput.value));
     numberInput.addEventListener("input", () => sync(numberInput.value));
