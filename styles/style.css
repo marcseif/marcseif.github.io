@@ -485,24 +485,24 @@ ul li {
   overflow: hidden;
   white-space: nowrap;
   padding: 10px 0;
-  text-align: center;
+  text-align: left; /* Changed from center to support natural leftward flow */
   z-index: 999;
   position: relative;
 }
 
 .promo-text {
   display: inline-block;
-  padding-left: 100%;
   animation: slideBanner 15s linear infinite;
   font-weight: bold;
   font-size: 1rem;
+  white-space: nowrap;
 }
 
 @keyframes slideBanner {
   0% {
-    transform: translateX(0);
+    transform: translateX(0%);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }

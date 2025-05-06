@@ -46,15 +46,48 @@
 
 .fern {
   position: absolute;
-  top: 1rem;
+  top: 0;
   height: auto;
   opacity: 0.8;
+  z-index: 1; /* Ensure ferns are above the background */
 }
 
 .fern-left {
-  left: 20%;
+  left: 0;
+  top: 1rem;
 }
 
 .fern-right {
-  right: 20%;
+  right: 0;
+  top: 1rem;
+}
+
+@media (min-width: 700px) {
+  .fern-left {
+    left: 8%;
+  }
+
+  .fern-right {
+    right: 8%;
+  }
+}
+
+@media (min-width: 700px) {
+  .fern-left {
+    left: 10%;
+  }
+
+  .fern-right {
+    right: 10%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .fern-left {
+    left: 20%;
+  }
+
+  .fern-right {
+    right: 20%;
+  }
 }

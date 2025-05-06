@@ -218,7 +218,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function updatePriceDisplay() {
     const base = calculateBasePrice();
     const price = calculatePrice(base);
-    const max = calculatePrice(base); // Identical calculation — can simplify if max logic varies later
 
     finalPrice.textContent = `$${price.toFixed(2)} AUD`;
 
@@ -226,9 +225,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const priceWarning = document.getElementById("price-warning");
 
     if (price <= 0) {
+      finalPrice.textContent = `$${price.toFixed(2)} AUD`;
       proceedButton.disabled = true;
       priceWarning.style.display = "block";
     } else {
+      finalPrice.textContent = `$${price.toFixed(2) - 0.01} AUD`;
       proceedButton.disabled = false;
       priceWarning.style.display = "none";
     }

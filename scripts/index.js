@@ -38,3 +38,34 @@ particlesJS("particles-js", {
   },
   retina_detect: true,
 });
+
+window.addEventListener("DOMContentLoaded", () => {
+  const promoText = document.querySelector(".promo-text");
+  const banner = document.querySelector(".promo-banner");
+  const baseText =
+    "SITE LAUNCH PROMOTION \u00A0 \u00A0 \u00A0 \u00A0\u00A0\u00A0\u00A0";
+
+  let repeatedText = baseText;
+
+  // Keep adding baseText until it's at least twice the width of the banner
+  while (getTextWidth(repeatedText, promoText) < banner.offsetWidth * 2) {
+    repeatedText += baseText;
+  }
+
+  promoText.textContent = repeatedText;
+
+  // Calculate speed based on the banner width (slower for longer text)
+  const speedFactor = banner.offsetWidth / 100; // Adjust the 1000 factor for desired speed
+
+  // Set the speed in the CSS animation dynamically
+  promoText.style.animationDuration = `${speedFactor}s`; // Dynamically set speed
+});
+
+function getTextWidth(text, element) {
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  const style = getComputedStyle(element);
+  const font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+  context.font = font;
+  return context.measureText(text).width;
+}

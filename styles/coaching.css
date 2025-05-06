@@ -220,3 +220,25 @@ label[for="currentLPGain"] {
 #current-lp-gain::placeholder {
   color: #aaa;
 }
+
+/* Mobile responsiveness adjustments */
+@media (max-width: 900px) {
+  /* Ensure the main content fits within the screen */
+  #main-content {
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+
+  /* Adjust subnav to prevent overflow */
+  .subnav ul {
+    overflow-x: auto; /* Enable horizontal scroll if needed */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: flex-start; /* Align items to the left */
+  }
+
+  .subnav-link {
+    font-size: 0.9rem; /* Reduce text size for mobile */
+    padding: 8px 16px;
+  }
+}

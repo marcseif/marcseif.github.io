@@ -516,3 +516,132 @@ select:focus {
   border-radius: 8px;
   font-weight: bold;
 }
+
+/* Mobile responsiveness adjustments */
+@media (max-width: 900px) {
+  /* Ensure the main content fits within the screen */
+  #main-content {
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+
+  /* Adjust subnav to prevent overflow */
+  .subnav ul {
+    overflow-x: auto; /* Enable horizontal scroll if needed */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: flex-start; /* Align items to the left */
+  }
+
+  .subnav-link {
+    font-size: 0.9rem; /* Reduce text size for mobile */
+    padding: 8px 16px;
+  }
+
+  /* Flex items in the boost-boxes row should stack vertically on small screens */
+  .boost-boxes {
+    flex-direction: column;
+    gap: 15px;
+    justify-content: flex-start;
+  }
+
+  /* Ensure the checkout box doesn't overflow */
+  .checkout {
+    flex: 1;
+    align-self: stretch;
+  }
+
+  /* Make sure pricing cards and boost boxes fit within the screen */
+  .pricing-card {
+    width: 100%; /* Ensure it takes full width on small screens */
+  }
+
+  /* Fix layout for extra options and dropdowns */
+  .extra-options {
+    padding: 0 10px;
+    gap: 10px;
+  }
+
+  /* Ensure tier and division boxes remain within the screen */
+  .tier-selection img,
+  .division-box {
+    width: 40px; /* Smaller icons on mobile */
+    height: 40px;
+  }
+
+  /* Ensure the main container is scrollable horizontally if needed */
+  .boost-boxes {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pricing-card,
+  .boost-box {
+    /* Make sure the boxes stay within the screen */
+    max-width: 100%; /* Prevent overflow by limiting the width */
+    box-sizing: border-box; /* Include padding and borders in width calculation */
+    padding: 10px; /* Adjust padding to ensure it's not too large */
+    margin: 10px auto; /* Center boxes with margins and avoid overflow */
+  }
+
+  /* Apply a max-width for containers with borders */
+  .border-box {
+    max-width: 100%;
+    box-sizing: border-box; /* Make sure border and padding are accounted for */
+    padding: 10px;
+    margin: 10px;
+  }
+
+  /* For elements with a gold border specifically */
+  .gold-border {
+    border: 2px solid #d8a92b; /* Gold border color */
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 10px auto; /* Center box and avoid overflow */
+    overflow: hidden; /* Hide any content spilling out */
+  }
+
+  /* Adjust flex items in boost-boxes */
+  .boost-boxes {
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+}
+
+/* Make sure images are responsive */
+@media (max-width: 600px) {
+  .tier-selection img,
+  .division-box {
+    width: 35px;
+    height: 35px;
+  }
+
+  /* Adjust buttons for smaller screens */
+  button[type="submit"] {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  /* Adjust dropdowns for smaller screens */
+  select {
+    width: 100%; /* Make dropdowns full width */
+    padding: 10px;
+  }
+
+  /* Prevent the page from overflowing */
+  body {
+    overflow-x: hidden; /* Disable horizontal scroll */
+  }
+  .pricing-card,
+  .boost-box {
+    max-width: 100%;
+    padding: 8px;
+  }
+
+  .gold-border {
+    padding: 8px;
+    margin: 8px auto;
+  }
+}

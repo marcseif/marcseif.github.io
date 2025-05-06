@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updatePriceDisplay() {
     const price = calculatePrice();
-    finalPrice.textContent = `$${price.toFixed(2)} AUD`;
+    finalPrice.textContent = `$${price.toFixed(2) - 0.01} AUD`;
 
     const proceedButton = document.querySelector("#proceed-button");
     const checkoutBox = document.querySelector(".checkout-box");
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
       rangeInput.value = value;
       numberInput.value = value;
       updateSummary();
-      updatePriceDisplay(); // ✅ Add this line
+      updatePriceDisplay();
     };
     rangeInput.addEventListener("input", () => sync(rangeInput.value));
     numberInput.addEventListener("input", () => sync(numberInput.value));
