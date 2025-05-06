@@ -339,3 +339,43 @@ document.addEventListener("DOMContentLoaded", function () {
   updatePriceDisplay();
   updateSummary();
 });
+
+document
+  .getElementById("proceed-button")
+  .addEventListener("click", async function (event) {
+    event.preventDefault();
+
+    const priceText = document
+      .getElementById("final-price")
+      .innerText.replace("$", "");
+    const amount = parseFloat(priceText);
+
+    if (amount <= 0 || isNaN(amount)) {
+      alert("Please select a valid boost to proceed.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://meowmeow-1-90gn.onrender.com/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ amount }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert("Failed to create Stripe session.");
+      }
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+      alert("Something went wrong while connecting to Stripe.");
+    }
+  });
