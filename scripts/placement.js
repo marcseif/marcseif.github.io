@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const winsSlider = document.getElementById("wins-slider");
   const winsCountDisplay = document.getElementById("wins-count");
   const winsSummary = document.getElementById("wins-summary");
+  const discordInput = document.getElementById("discord");
+  const proceedButton = document.getElementById("proceed-button");
 
   let currentTier = "bronze";
   let currentDivision = "II";
@@ -146,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateSummary() {
-    const winText = `${winsSlider.value} Win${
+    const winText = `${winsSlider.value} Game${
       winsSlider.value === "1" ? "" : "s"
     }`;
     currentRankIcon.src = `images/icons/${currentTier}.png`;
@@ -225,9 +227,10 @@ document.addEventListener("DOMContentLoaded", function () {
     option.addEventListener("change", updatePriceDisplay);
   });
 
+  const wins = parseInt(winsSlider.value);
+
   winsSlider.addEventListener("input", () => {
-    const wins = parseInt(winsSlider.value);
-    winsCountDisplay.textContent = `${wins} Win${wins === 1 ? "" : "s"}`;
+    winsCountDisplay.textContent = `${wins} Game${wins === 1 ? "" : "s"}`;
     updateSummary();
     updatePriceDisplay();
   });
@@ -264,54 +267,79 @@ document.addEventListener("DOMContentLoaded", function () {
         messageEl.style.color = "red";
       }
     });
-});
 
-document
-  .getElementById("proceed-button")
-  .addEventListener("click", async function (event) {
-    event.preventDefault();
+  function generateSummary() {
+    // Generate a summary string based on the current rank and wins
+    const discordUsername = document.getElementById("discord").value;
+    const winText = `${wins} Game${wins === 1 ? "" : "s"}`;
+    const rankText = `${capitalize(currentTier)} ${currentDivision}`;
 
-    // Get only the discounted price text
-    const discountedText = document
-      .querySelector("#final-price .discounted-price")
-      .innerText.replace("$", "");
-    const amount = parseFloat(discountedText);
+    // Combine both into a final summary
+    return `${winText} in ${rankText} for Discord User ${discordUsername}`;
+  }
 
-    if (amount <= 0 || isNaN(amount)) {
-      alert("Please select a valid boost to proceed.");
-      return;
-    }
+  document
+    .getElementById("proceed-button")
+    .addEventListener("click", async function (event) {
+      event.preventDefault();
 
-    try {
-      const response = await fetch(
-        "https://meowmeow-1-90gn.onrender.com/create-checkout-session",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ amount }),
-        }
-      );
+      // Get only the discounted price text
+      const discountedText = document
+        .querySelector("#final-price .discounted-price")
+        .innerText.replace("$", "");
+      const amount = parseFloat(discountedText);
 
-      const data = await response.json();
-
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert("Failed to create Stripe session.");
+      if (amount <= 0 || isNaN(amount)) {
+        alert("Please select a valid boost to proceed.");
+        return;
       }
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-      alert("Something went wrong while connecting to Stripe.");
-    }
-  });
+      const summary = generateSummary();
+      const servicename = "Placement Matches";
+      try {
+        const response = await fetch(
+          "https://meowmeow-1-90gn.onrender.com/create-checkout-session",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              amount,
+              description: summary,
+              name: servicename,
+            }),
+          }
+        );
 
-document.addEventListener("DOMContentLoaded", () => {
-  const proceedButton = document.getElementById("proceed-button");
+        const data = await response.json();
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert("Failed to create Stripe session.");
+        }
+      } catch (error) {
+        console.error("Error creating checkout session:", error);
+        alert("Something went wrong while connecting to Stripe.");
+      }
+    });
+
   const buttonText = proceedButton.querySelector(".button-text");
   const spinner = proceedButton.querySelector(".spinner");
 
+  // Initially disable the button if Discord input is empty
+  proceedButton.disabled = true;
+
+  // Event listener to enable the button when Discord is filled
+  discordInput.addEventListener("input", () => {
+    if (discordInput.value.trim()) {
+      proceedButton.disabled = false; // Enable button if input is valid
+    } else {
+      proceedButton.disabled = true; // Disable button if input is empty
+    }
+  });
+
+  // Button click event
   proceedButton.addEventListener("click", (e) => {
     // Prevent multiple clicks
     proceedButton.disabled = true;

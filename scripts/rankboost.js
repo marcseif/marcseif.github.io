@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const currentLPNumber = document.getElementById("current-lp-number");
   const desiredLPRange = document.getElementById("desired-lp-range");
   const desiredLPNumber = document.getElementById("desired-lp-number");
+  const discordInput = document.getElementById("discord");
+  const proceedButton = document.getElementById("proceed-button");
+  const priceWarning = document.getElementById("price-warning");
 
   let currentTier = "bronze";
   let desiredTier = "silver";
@@ -146,9 +149,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const desiredLP = parseInt(desiredLPNumber.value || 0);
       price += desiredLP * 2;
 
-      const proceedButton = document.getElementById("proceed-button");
-      const priceWarning = document.getElementById("price-warning");
-
       return price;
     }
 
@@ -228,8 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const discountedPriceEl = document.querySelector(
       "#final-price .discounted-price"
     );
-    const proceedButton = document.getElementById("proceed-button");
-    const priceWarning = document.getElementById("price-warning");
 
     if (fullPrice > 0) {
       if (discountApplied) {
@@ -267,6 +265,18 @@ document.addEventListener("DOMContentLoaded", function () {
       desiredTier === "master"
         ? `${desiredLPNumber.value} LP`
         : desiredDivision;
+  }
+
+  function generateSummary() {
+    // Format the current division and tier
+    const discordUsername = document.getElementById("discord").value;
+    const currentSummary = `${capitalize(currentTier)} ${currentDivision}`;
+
+    // Format the desired division and tier
+    const desiredSummary = `${capitalize(desiredTier)} ${desiredDivision}`;
+
+    // Combine the current and desired divisions for the final summary
+    return `${currentSummary} to ${desiredSummary} for Discord User ${discordUsername}`;
   }
 
   function setupLPInputs(rangeInput, numberInput) {
@@ -379,54 +389,69 @@ document.addEventListener("DOMContentLoaded", function () {
         messageEl.style.color = "red";
       }
     });
-});
 
-document
-  .getElementById("proceed-button")
-  .addEventListener("click", async function (event) {
-    event.preventDefault();
+  document
+    .getElementById("proceed-button")
+    .addEventListener("click", async function (event) {
+      event.preventDefault();
 
-    // Get only the discounted price text
-    const discountedText = document
-      .querySelector("#final-price .discounted-price")
-      .innerText.replace("$", "");
-    const amount = parseFloat(discountedText);
+      // Get only the discounted price text
+      const discountedText = document
+        .querySelector("#final-price .discounted-price")
+        .innerText.replace("$", "");
+      const amount = parseFloat(discountedText);
 
-    if (amount <= 0 || isNaN(amount)) {
-      alert("Please select a valid boost to proceed.");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        "https://meowmeow-1-90gn.onrender.com/create-checkout-session",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ amount }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert("Failed to create Stripe session.");
+      if (amount <= 0 || isNaN(amount)) {
+        alert("Please select a valid boost to proceed.");
+        return;
       }
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-      alert("Something went wrong while connecting to Stripe.");
-    }
-  });
+      const summary = generateSummary();
+      const servicename = "Division Boost";
+      try {
+        const response = await fetch(
+          "https://meowmeow-1-90gn.onrender.com/create-checkout-session",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              amount,
+              description: summary,
+              name: servicename,
+            }),
+          }
+        );
 
-document.addEventListener("DOMContentLoaded", () => {
-  const proceedButton = document.getElementById("proceed-button");
+        const data = await response.json();
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert("Failed to create Stripe session.");
+        }
+      } catch (error) {
+        console.error("Error creating checkout session:", error);
+        alert("Something went wrong while connecting to Stripe.");
+      }
+    });
+
   const buttonText = proceedButton.querySelector(".button-text");
   const spinner = proceedButton.querySelector(".spinner");
 
+  // Initially disable the button if Discord input is empty
+  proceedButton.disabled = true;
+
+  // Event listener to enable the button when Discord is filled
+  discordInput.addEventListener("input", () => {
+    if (discordInput.value.trim()) {
+      proceedButton.disabled = false; // Enable button if input is valid
+    } else {
+      proceedButton.disabled = true; // Disable button if input is empty
+    }
+  });
+
+  // Button click event
   proceedButton.addEventListener("click", (e) => {
     // Prevent multiple clicks
     proceedButton.disabled = true;

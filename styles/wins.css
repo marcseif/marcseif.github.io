@@ -579,3 +579,15 @@ button[type="submit"]:hover {
   font-size: 20px;
   font-weight: bold;
 }
+
+#proceed-button:disabled {
+  background-color: #444;
+  color: #999;
+  cursor: not-allowed;
+  border: 1px solid #666;
+  opacity: 0.7;
+}
+
+#proceed-button {
+  transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+}
