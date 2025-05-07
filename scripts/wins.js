@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
         discountedPriceEl.textContent = `$${fullPrice.toFixed(2)} AUD`;
       }
 
-      proceedButton.disabled = false;
+      proceedButton.disabled = !discordInput.value.trim();
     } else {
       originalPriceEl.style.display = "none";
       discountedPriceEl.textContent = "";
