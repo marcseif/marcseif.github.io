@@ -321,14 +321,24 @@
               </div>
             </div>
 
+            <div class="coupon-section">
+              <input type="text" id="coupon-code" value="WELCOME10" disabled />
+              <button type="button" id="apply-coupon">Apply</button>
+            </div>
+
             <div class="pricing-card">
               <p id="final-price">$10</p>
               <p>Price based on your selections</p>
             </div>
 
             <button id="proceed-button" type="submit">
-              Proceed to Checkout
+              <span class="button-text">Proceed to Checkout</span>
+              <span class="spinner">
+                <span class="loader"></span>
+                Redirecting...
+              </span>
             </button>
+
             <div id="price-warning" class="warning-box" style="display: none">
               Current rank must be lower than desired rank.
             </div>

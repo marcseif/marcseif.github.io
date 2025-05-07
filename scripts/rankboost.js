@@ -340,20 +340,51 @@ document.addEventListener("DOMContentLoaded", function () {
   updateSummary();
 });
 
-document
-  .getElementById("proceed-button")
-  .addEventListener("click", async function (event) {
+let couponApplied = false;
+let discountedAmount = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("checkout-form");
+  const button = document.getElementById("proceed-button");
+  const spinner = button.querySelector(".spinner");
+  const buttonText = button.querySelector(".button-text");
+
+  const finalPriceEl = document.getElementById("final-price");
+  const couponInput = document.getElementById("coupon-code");
+  const applyCouponBtn = document.getElementById("apply-coupon");
+
+  let baseAmount = parseFloat(finalPriceEl.innerText.replace("$", ""));
+
+  applyCouponBtn.addEventListener("click", () => {
+    const code = couponInput.value.trim().toUpperCase();
+
+    if (code === "WELCOME10") {
+      discountedAmount = parseFloat((baseAmount * 0.9).toFixed(2));
+      finalPriceEl.innerHTML = `
+        <span class="original-price">$${baseAmount.toFixed(2)}</span>
+        <span class="discounted-price">$${discountedAmount.toFixed(2)}</span>
+      `;
+      couponApplied = true;
+    } else {
+      alert("Invalid coupon code.");
+      finalPriceEl.textContent = `$${baseAmount.toFixed(2)}`;
+      couponApplied = false;
+    }
+  });
+
+  form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const priceText = document
-      .getElementById("final-price")
-      .innerText.replace("$", "");
-    const amount = parseFloat(priceText);
+    let amount = couponApplied ? discountedAmount : baseAmount;
 
     if (amount <= 0 || isNaN(amount)) {
       alert("Please select a valid boost to proceed.");
       return;
     }
+
+    button.disabled = true;
+    spinner.style.display = "inline-block";
+    buttonText.style.display = "none";
 
     try {
       const response = await fetch(
@@ -372,10 +403,14 @@ document
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert("Failed to create Stripe session.");
+        throw new Error("No URL returned");
       }
     } catch (error) {
       console.error("Error creating checkout session:", error);
       alert("Something went wrong while connecting to Stripe.");
+      button.disabled = false;
+      spinner.style.display = "none";
+      buttonText.style.display = "inline";
     }
   });
+});

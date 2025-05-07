@@ -645,3 +645,78 @@ select:focus {
     margin: 8px auto;
   }
 }
+
+.loader {
+  border: 2px solid #ccc;
+  border-top: 2px solid #d8a92b;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.coupon-section {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.coupon-section input {
+  padding: 8px 12px;
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #d8a92b;
+  border-radius: 8px;
+  font-size: 14px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.coupon-section input::placeholder {
+  color: #aaa;
+}
+
+.coupon-section button {
+  background-color: #d8a92b;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.coupon-section button:hover {
+  background-color: #e7b83c;
+}
+
+#final-price .original-price {
+  color: #888;
+  text-decoration: line-through;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+#final-price .discounted-price {
+  color: #d8a92b;
+  font-size: 20px;
+  font-weight: bold;
+}
