@@ -31,6 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentDivision = "II";
   let desiredDivision = "II";
 
+  let discountApplied = false;
+
   // Highlight the current rank on page load
   const currentRankImg = document.querySelector(
     `.tier-selection[data-type="current"] img[data-tier="${currentTier}"]`
@@ -120,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const lpDiff =
           parseInt(desiredLPNumber.value || 0) -
           parseInt(currentLPNumber.value || 0);
-        return lpDiff > 0 ? lpDiff * 1.6 : 0;
+        return lpDiff > 0 ? lpDiff * 2 : 0;
       }
 
       // Else, go from current → Diamond I → Master (200)
@@ -142,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Then add LP pricing from 0 to desired LP
       const desiredLP = parseInt(desiredLPNumber.value || 0);
-      price += desiredLP * 1.6;
+      price += desiredLP * 2;
 
       const proceedButton = document.getElementById("proceed-button");
       const priceWarning = document.getElementById("price-warning");
@@ -216,22 +218,38 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updatePriceDisplay() {
-    const base = calculateBasePrice();
-    const price = calculatePrice(base);
+    const base = calculateBasePrice(); // base from rank selections
+    const fullPrice = calculatePrice(base); // total including options
+    const discounted = fullPrice * 0.9; // discounted total if coupon applied
 
-    finalPrice.textContent = `$${price.toFixed(2)} AUD`;
-
+    const originalPriceEl = document.querySelector(
+      "#final-price .original-price"
+    );
+    const discountedPriceEl = document.querySelector(
+      "#final-price .discounted-price"
+    );
     const proceedButton = document.getElementById("proceed-button");
     const priceWarning = document.getElementById("price-warning");
 
-    if (price <= 0) {
-      finalPrice.textContent = `$${price.toFixed(2)} AUD`;
-      proceedButton.disabled = true;
-      priceWarning.style.display = "block";
-    } else {
-      finalPrice.textContent = `$${price.toFixed(2) - 0.01} AUD`;
+    if (fullPrice > 0) {
+      if (discountApplied) {
+        originalPriceEl.textContent = `$${fullPrice.toFixed(2)} AUD`;
+        originalPriceEl.style.display = "inline";
+
+        discountedPriceEl.textContent = `$${discounted.toFixed(2)} AUD`;
+      } else {
+        originalPriceEl.style.display = "none";
+        discountedPriceEl.textContent = `$${fullPrice.toFixed(2)} AUD`;
+      }
+
       proceedButton.disabled = false;
       priceWarning.style.display = "none";
+    } else {
+      originalPriceEl.style.display = "none";
+      discountedPriceEl.textContent = "";
+
+      proceedButton.disabled = true;
+      priceWarning.style.display = "block";
     }
   }
 
@@ -338,53 +356,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updatePriceDisplay();
   updateSummary();
+
+  document
+    .getElementById("apply-coupon")
+    .addEventListener("click", function () {
+      const couponInput = document.getElementById("coupon-code").value.trim();
+      const messageEl = document.getElementById("coupon-message");
+
+      if (couponInput.toUpperCase() === "SITELAUNCH10") {
+        discountApplied = true;
+        updatePriceDisplay();
+        updateSummary(); // if used
+
+        // Show success message
+        messageEl.textContent = "Coupon applied successfully!";
+        messageEl.style.display = "block";
+        messageEl.style.color = "#d8a92b";
+      } else {
+        // Show error message
+        messageEl.textContent = "Invalid coupon code.";
+        messageEl.style.display = "block";
+        messageEl.style.color = "red";
+      }
+    });
 });
 
-let couponApplied = false;
-let discountedAmount = 0;
-
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("checkout-form");
-  const button = document.getElementById("proceed-button");
-  const spinner = button.querySelector(".spinner");
-  const buttonText = button.querySelector(".button-text");
-
-  const finalPriceEl = document.getElementById("final-price");
-  const couponInput = document.getElementById("coupon-code");
-  const applyCouponBtn = document.getElementById("apply-coupon");
-
-  let baseAmount = parseFloat(finalPriceEl.innerText.replace("$", ""));
-
-  applyCouponBtn.addEventListener("click", () => {
-    const code = couponInput.value.trim().toUpperCase();
-
-    if (code === "WELCOME10") {
-      discountedAmount = parseFloat((baseAmount * 0.9).toFixed(2));
-      finalPriceEl.innerHTML = `
-        <span class="original-price">$${baseAmount.toFixed(2)}</span>
-        <span class="discounted-price">$${discountedAmount.toFixed(2)}</span>
-      `;
-      couponApplied = true;
-    } else {
-      alert("Invalid coupon code.");
-      finalPriceEl.textContent = `$${baseAmount.toFixed(2)}`;
-      couponApplied = false;
-    }
-  });
-
-  form.addEventListener("submit", async function (event) {
+document
+  .getElementById("proceed-button")
+  .addEventListener("click", async function (event) {
     event.preventDefault();
 
-    let amount = couponApplied ? discountedAmount : baseAmount;
+    // Get only the discounted price text
+    const discountedText = document
+      .querySelector("#final-price .discounted-price")
+      .innerText.replace("$", "");
+    const amount = parseFloat(discountedText);
 
     if (amount <= 0 || isNaN(amount)) {
       alert("Please select a valid boost to proceed.");
       return;
     }
-
-    button.disabled = true;
-    spinner.style.display = "inline-block";
-    buttonText.style.display = "none";
 
     try {
       const response = await fetch(
@@ -403,14 +414,33 @@ document.addEventListener("DOMContentLoaded", () => {
       if (data.url) {
         window.location.href = data.url;
       } else {
-        throw new Error("No URL returned");
+        alert("Failed to create Stripe session.");
       }
     } catch (error) {
       console.error("Error creating checkout session:", error);
       alert("Something went wrong while connecting to Stripe.");
-      button.disabled = false;
-      spinner.style.display = "none";
-      buttonText.style.display = "inline";
     }
+  });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const proceedButton = document.getElementById("proceed-button");
+  const buttonText = proceedButton.querySelector(".button-text");
+  const spinner = proceedButton.querySelector(".spinner");
+
+  proceedButton.addEventListener("click", (e) => {
+    // Prevent multiple clicks
+    proceedButton.disabled = true;
+
+    // Apply greyed-out appearance
+    proceedButton.classList.add("disabled");
+
+    // Show spinner, hide text
+    buttonText.style.display = "none";
+    spinner.style.display = "inline-flex";
+
+    // Optional: Simulate redirect delay
+    // setTimeout(() => {
+    //   window.location.href = 'checkout.html';
+    // }, 2000);
   });
 });

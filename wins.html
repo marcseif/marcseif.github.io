@@ -246,12 +246,33 @@
               </div>
             </div>
 
+            <div class="coupon-section">
+              <input type="text" id="coupon-code" value="SITELAUNCH10" />
+              <button type="button" id="apply-coupon">Apply</button>
+            </div>
+
+            <p
+              id="coupon-message"
+              style="display: none; color: #d8a92b; margin-top: 10px"
+            >
+              Coupon applied successfully!
+            </p>
+
             <div class="pricing-card">
-              <p id="final-price">$10</p>
+              <div id="final-price">
+                <span class="original-price" style="display: none"></span>
+                <span class="discounted-price"></span>
+              </div>
               <p>Price based on your selections</p>
             </div>
 
-            <button type="submit">Proceed to Checkout</button>
+            <button id="proceed-button" type="submit">
+              <span class="button-text">Proceed to Checkout</span>
+              <span class="spinner">
+                <span class="loader"></span>
+                Redirecting...
+              </span>
+            </button>
           </form>
         </div>
       </div>

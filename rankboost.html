@@ -143,7 +143,7 @@
                 <option value="1">21-40</option>
                 <option value="2">41-60</option>
                 <option value="3">61-80</option>
-                <option value="4">81-100</option>
+                <option value="4">81-99</option>
               </select>
             </div>
 
@@ -322,12 +322,22 @@
             </div>
 
             <div class="coupon-section">
-              <input type="text" id="coupon-code" value="WELCOME10" disabled />
+              <input type="text" id="coupon-code" value="SITELAUNCH10" />
               <button type="button" id="apply-coupon">Apply</button>
             </div>
 
+            <p
+              id="coupon-message"
+              style="display: none; color: #d8a92b; margin-top: 10px"
+            >
+              Coupon applied successfully!
+            </p>
+
             <div class="pricing-card">
-              <p id="final-price">$10</p>
+              <div id="final-price">
+                <span class="original-price" style="display: none"></span>
+                <span class="discounted-price"></span>
+              </div>
               <p>Price based on your selections</p>
             </div>
 

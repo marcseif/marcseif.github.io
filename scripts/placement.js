@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentTier = "bronze";
   let currentDivision = "II";
 
+  let discountApplied = false;
+
   const tierValues = {
     iron: 0,
     bronze: 50,
@@ -112,20 +114,34 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updatePriceDisplay() {
-    const price = calculatePrice();
-    finalPrice.textContent = `$${price.toFixed(2) - 0.01} AUD`;
+    const fullPrice = calculatePrice(); // total including options
+    const discounted = fullPrice * 0.9; // discounted total if coupon applied
 
-    const proceedButton = document.querySelector("#proceed-button");
-    const checkoutBox = document.querySelector(".checkout-box");
+    const originalPriceEl = document.querySelector(
+      "#final-price .original-price"
+    );
+    const discountedPriceEl = document.querySelector(
+      "#final-price .discounted-price"
+    );
+    const proceedButton = document.getElementById("proceed-button");
 
-    if (price > 0) {
+    if (fullPrice > 0) {
+      if (discountApplied) {
+        originalPriceEl.textContent = `$${fullPrice.toFixed(2)} AUD`;
+        originalPriceEl.style.display = "inline";
+
+        discountedPriceEl.textContent = `$${discounted.toFixed(2)} AUD`;
+      } else {
+        originalPriceEl.style.display = "none";
+        discountedPriceEl.textContent = `$${fullPrice.toFixed(2)} AUD`;
+      }
+
       proceedButton.disabled = false;
-      proceedButton.classList.remove("disabled");
-      checkoutBox.classList.remove("error");
     } else {
+      originalPriceEl.style.display = "none";
+      discountedPriceEl.textContent = "";
+
       proceedButton.disabled = true;
-      proceedButton.classList.add("disabled");
-      checkoutBox.classList.add("error");
     }
   }
 
@@ -182,8 +198,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
 
+      updateSummary(); // Ensure summary is updated when tier is selected
       updatePriceDisplay();
-      updateSummary();
     });
   });
 
@@ -200,8 +216,8 @@ document.addEventListener("DOMContentLoaded", function () {
         this.classList.add("selected");
       }
 
+      updateSummary(); // Ensure summary is updated when division is selected
       updatePriceDisplay();
-      updateSummary();
     });
   });
 
@@ -225,4 +241,91 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updatePriceDisplay();
   updateSummary();
+
+  document
+    .getElementById("apply-coupon")
+    .addEventListener("click", function () {
+      const couponInput = document.getElementById("coupon-code").value.trim();
+      const messageEl = document.getElementById("coupon-message");
+
+      if (couponInput.toUpperCase() === "SITELAUNCH10") {
+        discountApplied = true;
+        updatePriceDisplay();
+        updateSummary(); // if used
+
+        // Show success message
+        messageEl.textContent = "Coupon applied successfully!";
+        messageEl.style.display = "block";
+        messageEl.style.color = "#d8a92b";
+      } else {
+        // Show error message
+        messageEl.textContent = "Invalid coupon code.";
+        messageEl.style.display = "block";
+        messageEl.style.color = "red";
+      }
+    });
+});
+
+document
+  .getElementById("proceed-button")
+  .addEventListener("click", async function (event) {
+    event.preventDefault();
+
+    // Get only the discounted price text
+    const discountedText = document
+      .querySelector("#final-price .discounted-price")
+      .innerText.replace("$", "");
+    const amount = parseFloat(discountedText);
+
+    if (amount <= 0 || isNaN(amount)) {
+      alert("Please select a valid boost to proceed.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://meowmeow-1-90gn.onrender.com/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ amount }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert("Failed to create Stripe session.");
+      }
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+      alert("Something went wrong while connecting to Stripe.");
+    }
+  });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const proceedButton = document.getElementById("proceed-button");
+  const buttonText = proceedButton.querySelector(".button-text");
+  const spinner = proceedButton.querySelector(".spinner");
+
+  proceedButton.addEventListener("click", (e) => {
+    // Prevent multiple clicks
+    proceedButton.disabled = true;
+
+    // Apply greyed-out appearance
+    proceedButton.classList.add("disabled");
+
+    // Show spinner, hide text
+    buttonText.style.display = "none";
+    spinner.style.display = "inline-flex";
+
+    // Optional: Simulate redirect delay
+    // setTimeout(() => {
+    //   window.location.href = 'checkout.html';
+    // }, 2000);
+  });
 });
