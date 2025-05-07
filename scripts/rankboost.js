@@ -444,11 +444,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Event listener to enable the button when Discord is filled
   discordInput.addEventListener("input", () => {
-    if (discordInput.value.trim()) {
-      proceedButton.disabled = false; // Enable button if input is valid
-    } else {
-      proceedButton.disabled = true; // Disable button if input is empty
-    }
+    updatePriceDisplay();
   });
 
   // Button click event
